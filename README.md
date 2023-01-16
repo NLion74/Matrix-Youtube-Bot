@@ -13,4 +13,18 @@ To use the bot you will have to create a matrix account and then adjust the home
 
 The bot can be used by following this format: ```!download [args] [url]```
 
-Note that arguments have yet to be added.
+
+### Commands:
+```
+!help                                   Used to show a help menu
+                                        Format: !help
+
+!download                               Command for downloading Youtube Videos.
+                                        Format: !download [args] [url]
+```
+
+### Args:
+```
+!download -r, --resolution          [360p, 480p, 720p, 1080p]
+!download -t, --type                [video, audio]
+```
