@@ -7,7 +7,7 @@ config = clientlib.Config()
 config.emoji_verify = True
 config.ignore_unverified_devices = True
 
-creds = clientlib.Creds("https://your.home.server", "@bot:home.server", "bot_password")
+creds = clientlib.Creds("https://mtx.nlion.nl", "@youtube-downloader:nlion.nl", "dN0H57Ua$t9^^jJ$")
 client = clientlib.Bot(creds, config)
 PREFIX = '!'
 
