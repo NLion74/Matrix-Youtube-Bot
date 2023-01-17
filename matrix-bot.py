@@ -3,7 +3,7 @@ import os.path
 import simplematrixbotlib as clientlib
 from pytube import YouTube
 
-creds = clientlib.Creds("https://mtx.nlion.nl", "@youtube-downloader:nlion.nl", "N$CC1K*n5d8Rf3z*")
+creds = clientlib.Creds("https://your.home.server", "@bot:home.server", "bot_password")
 client = clientlib.Bot(creds)
 PREFIX = '!'
 
@@ -88,8 +88,13 @@ async def downloader(room, message):
 
     if message.sender != client.async_client.user and message.body.startswith(f"{PREFIX}help"):
         print("!help has been executed")
-        await client.api.send_markdown_message(room.room_id, "#### Usage:\n"
-                                                             "Visit [Usage](https://github.com/NLion74/Matrix-Youtube-Bot#Usage) for more information on how to use this bot.")
+        if os.path.exists("./messages/helpmessage.txt"):
+            with open("./messages/helpmessage.txt", "r") as f:
+                helpmessage = f.read()
+        else:
+            quit("Internal Error")
+
+        await client.api.send_markdown_message(room.room_id, helpmessage)
 
 
 client.run()

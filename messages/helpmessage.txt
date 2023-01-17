@@ -1,0 +1,17 @@
+#### Usage:
+
+The bot can be used by following this format: ```!(command) [args] [url]```
+
+
+#### Commands:
+
+```!help                                Used to show a help menu         |```
+```Format: !help                                                         |```
+
+```!download                            Used to download Youtube Videos  |```
+```Format: !download [args] [url]                                        |```
+
+#### Args:
+
+```!download -r, --resolution           [360p, 480p, 720p, 1080p]        |```
+```!download -t, --type                 [video, audio]                   |```
