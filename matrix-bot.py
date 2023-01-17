@@ -3,18 +3,14 @@ import os.path
 import simplematrixbotlib as clientlib
 from pytube import YouTube
 
-config = clientlib.Config()
-config.emoji_verify = True
-config.ignore_unverified_devices = True
-
-creds = clientlib.Creds("https://your.home.server", "@bot:home.server", "bot_password")
-client = clientlib.Bot(creds, config)
+creds = clientlib.Creds("https://mtx.nlion.nl", "@youtube-downloader:nlion.nl", "N$CC1K*n5d8Rf3z*")
+client = clientlib.Bot(creds)
 PREFIX = '!'
 
 ytpath = "./youtube"
 
 
-async def argfetcher(room, args, file_type, res):
+async def argfetch(room, args, file_type, res):
     if args:
         for i in range(len(args) - 1):
             if str(args[i]).startswith("-"):
@@ -24,7 +20,7 @@ async def argfetcher(room, args, file_type, res):
                     elif args[(i + 1)] == "video":
                         file_type = "video"
                     else:
-                        await client.api.send_text_message(room.room_id, f"{args[(i + 1)]} is not a valid option for {args[i]}. Use !Help to see available options.")
+                        await client.api.send_text_message(room.room_id, f"{args[(i + 1)]} is not a valid option for {args[i]}. Use !Help for more info.")
                         return False, False
 
                 elif args[i] == "-r" or args[i] == "--resolution":
@@ -37,11 +33,11 @@ async def argfetcher(room, args, file_type, res):
                     elif args[(i + 1)] == "1080" or args[(i + 1)] == "1080p":
                         res = "1080p"
                     else:
-                        await client.api.send_text_message(room.room_id, f"{args[(i + 1)]} is not a valid option for {args[i]}. Use !Help to see available options.")
+                        await client.api.send_text_message(room.room_id, f"{args[(i + 1)]} is not a valid option for {args[i]}. Use !Help for more info.")
                         return False, False
 
                 else:
-                    await client.api.send_text_message(room.room_id, f"{args[i]} is not an available arg. Use !Help to see available args.")
+                    await client.api.send_text_message(room.room_id, f"{args[i]} is not an available arg. Use !Help for more info")
                     return False, False
 
         return file_type, res
@@ -71,7 +67,7 @@ async def downloader(room, message):
             file_type = "video"
             res = "360p"
 
-            file_type, res = await argfetcher(room, args, file_type, res)
+            file_type, res = await argfetch(room, args, file_type, res)
             if not file_type and not res:
                 return False
 
@@ -92,17 +88,8 @@ async def downloader(room, message):
 
     if message.sender != client.async_client.user and message.body.startswith(f"{PREFIX}help"):
         print("!help has been executed")
-        await client.api.send_text_message(room.room_id, "Usage:\n"
-                                                         "\n"
-                                                         "Commands:\n"
-                                                         "       !help                                   Used to show this very menu\n"
-                                                         "                                                   Format: !help\n"
-                                                         "       !download                          Command for downloading Youtube Videos.\n"
-                                                         "                                                   Format: !download [args] [url]\n"
-                                                         "\n"
-                                                         "Args:\n"
-                                                         "       !download -r, --resolution       [360p, 480p, 720p, 1080p]\n"
-                                                         "       !download -t, --type                [video, audio]\n")
+        await client.api.send_markdown_message(room.room_id, "#### Usage:\n"
+                                                             "Visit [Usage](https://github.com/NLion74/Matrix-Youtube-Bot#Usage) for more information on how to use this bot.")
 
 
 client.run()
