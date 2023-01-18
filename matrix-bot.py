@@ -3,7 +3,7 @@ import os.path
 import simplematrixbotlib as clientlib
 from pytube import YouTube
 
-creds = clientlib.Creds("https://your.home.server", "@bot:home.server", "bot_password")
+creds = clientlib.Creds("https://mtx.nlion.nl", "@youtube-downloader:nlion.nl", "J9!5*u%3&9u&FNoU")
 client = clientlib.Bot(creds)
 PREFIX = '!'
 
@@ -24,7 +24,9 @@ async def argfetch(room, args, file_type, res):
                         return False, False
 
                 elif args[i] == "-r" or args[i] == "--resolution":
-                    if args[(i + 1)] == "360" or args[(i + 1)] == "360p":
+                    if args[(i + 1)] == "144" or args[(i + 1)] == "144p":
+                        res = "144p"
+                    elif args[(i + 1)] == "360" or args[(i + 1)] == "360p":
                         res = "360p"
                     elif args[(i + 1)] == "480" or args[(i + 1)] == "480p":
                         res = "480p"
@@ -39,7 +41,6 @@ async def argfetch(room, args, file_type, res):
                 else:
                     await client.api.send_text_message(room.room_id, f"{args[i]} is not an available arg. Use !Help for more info")
                     return False, False
-
         return file_type, res
 
     elif not args:
@@ -61,7 +62,10 @@ async def downloader(room, message):
 
         if words[(len(words) - 1)].startswith("https://") or words[(len(words) - 1)].startswith("http://"):
             url = words[(len(words) - 1)]
-            yt = YouTube(url)
+            try:
+                yt = YouTube(url)
+            except:
+                await client.api.send_text_message(room.room_id, "The Link is either not valid or the bot has connection troubles")
 
             # Defaults
             file_type = "video"
@@ -73,15 +77,20 @@ async def downloader(room, message):
 
             if file_type == "video":
                 await client.api.send_text_message(room.room_id, "Downloading Video File")
-                stream = yt.streams.filter().get_by_resolution(res)
+                stream = yt.streams.filter(file_extension="mp4").get_by_resolution(res)
             elif file_type == "audio":
                 await client.api.send_text_message(room.room_id, "Downloading Audio File")
                 stream = yt.streams.filter().get_audio_only()
 
-            file = stream.download(ytpath)
-
-            await client.api.send_video_message(room.room_id, file)
-            os.remove(file)
+            if stream == None:
+                await client.api.send_text_message(room.room_id, "File failed to download because of an internal error.")
+            else:
+                file = stream.download(ytpath)
+                try:
+                    await client.api.send_video_message(room.room_id, file)
+                except:
+                    raise
+                os.remove(file)
 
         else:
             return
