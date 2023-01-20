@@ -3,7 +3,7 @@ import os.path
 import simplematrixbotlib as clientlib
 from pytube import YouTube
 
-creds = clientlib.Creds("https://mtx.nlion.nl", "@youtube-downloader:nlion.nl", "J9!5*u%3&9u&FNoU")
+creds = clientlib.Creds("https://your.home.server", "@bot:home.server", "bot_pass")
 client = clientlib.Bot(creds)
 PREFIX = '!'
 
