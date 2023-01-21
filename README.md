@@ -3,11 +3,11 @@ A simple Matrix Bot able to download videos and send them over Matrix
 
 ## Requirements
 
-You will need to have simplematrixbotlib and pytube installed
+You will have to install simplematrixbotlib and pytube via pip. ffmpeg will also have to be installed.
 
 ## Preparation
 
-To use the bot you will have to create a matrix account and then adjust the homeserver, username and password in the matrix-bot.py. Afterwards you will have to message the bot just like you would with any user. To use the bot see [Usage](https://github.com/NLion74/Matrix-Youtube-Bot#Usage)
+To use the bot you will have to create a matrix account and then adjust the homeserver, username and password as well as the ffmpeg path in the matrix-bot.py. Afterwards you will be able to message the bot just like you would with any user. To use the bot see [Usage](https://github.com/NLion74/Matrix-Youtube-Bot#Usage)
 
 ## Usage
 
